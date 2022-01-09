@@ -29,10 +29,8 @@
 
 #define BOARD_INFO_NAME      "Artillery Ruby"
 
-#if NO_EEPROM_SELECTED
-  #define FLASH_EEPROM_EMULATION
-  //#define I2C_EEPROM
-#endif
+#define FLASH_EEPROM_EMULATION
+//#define I2C_EEPROM
 //#define E2END                            0xFFF  // 4KB
 
 #define HAL_TIMER_RATE                     F_CPU

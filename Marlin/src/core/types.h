@@ -64,8 +64,6 @@ struct IF<true, L, R> { typedef L type; };
   #define GANG_ITEM_E(N)
 #endif
 
-#define AXIS_COLLISION(L) (AXIS4_NAME == L || AXIS5_NAME == L || AXIS6_NAME == L)
-
 //
 // Enumerated axis indices
 //
@@ -98,10 +96,10 @@ enum AxisEnum : uint8_t {
 
   // A, B, and C are for DELTA, SCARA, etc.
   , A_AXIS = X_AXIS
-  #if HAS_Y_AXIS
+  #if LINEAR_AXES >= 2
     , B_AXIS = Y_AXIS
   #endif
-  #if HAS_Z_AXIS
+  #if LINEAR_AXES >= 3
     , C_AXIS = Z_AXIS
   #endif
 
@@ -408,13 +406,13 @@ struct XYZval {
       FI void set(const T (&arr)[DISTINCT_AXES])       { LINEAR_AXIS_CODE(x = arr[0], y = arr[1], z = arr[2], i = arr[3], j = arr[4], k = arr[5]); }
     #endif
   #endif
-  #if HAS_I_AXIS
+  #if LINEAR_AXES >= 4
     FI void set(const T px, const T py, const T pz)                         { x = px; y = py; z = pz; }
   #endif
-  #if HAS_J_AXIS
+  #if LINEAR_AXES >= 5
     FI void set(const T px, const T py, const T pz, const T pi)             { x = px; y = py; z = pz; i = pi; }
   #endif
-  #if HAS_K_AXIS
+  #if LINEAR_AXES >= 6
     FI void set(const T px, const T py, const T pz, const T pi, const T pj) { x = px; y = py; z = pz; i = pi; j = pj; }
   #endif
 
@@ -549,13 +547,13 @@ struct XYZEval {
     FI void set(const XYZval<T> pxyz, const T pe)  { set(pxyz); e = pe; }
     FI void set(LOGICAL_AXIS_ARGS(const T))        { LOGICAL_AXIS_CODE(_e = e, a = x, b = y, c = z, u = i, v = j, w = k); }
   #endif
-  #if HAS_I_AXIS
+  #if LINEAR_AXES >= 4
     FI void set(const T px, const T py, const T pz)                         { x = px; y = py; z = pz; }
   #endif
-  #if HAS_J_AXIS
+  #if LINEAR_AXES >= 5
     FI void set(const T px, const T py, const T pz, const T pi)             { x = px; y = py; z = pz; i = pi; }
   #endif
-  #if HAS_K_AXIS
+  #if LINEAR_AXES >= 6
     FI void set(const T px, const T py, const T pz, const T pi, const T pj) { x = px; y = py; z = pz; i = pi; j = pj; }
   #endif
 

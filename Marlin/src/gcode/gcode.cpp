@@ -148,7 +148,6 @@ int8_t GcodeSuite::get_target_extruder_from_command() {
 int8_t GcodeSuite::get_target_e_stepper_from_command(const int8_t dval/*=-1*/) {
   const int8_t e = parser.intval('T', dval);
   if (WITHIN(e, 0, E_STEPPERS - 1)) return e;
-  if (dval == -2) return dval;
 
   SERIAL_ECHO_START();
   SERIAL_CHAR('M'); SERIAL_ECHO(parser.codenum);
@@ -160,7 +159,7 @@ int8_t GcodeSuite::get_target_e_stepper_from_command(const int8_t dval/*=-1*/) {
 }
 
 /**
- * Set XYZ...E destination and feedrate from the current GCode command
+ * Set XYZIJKE destination and feedrate from the current GCode command
  *
  *  - Set destination from included axis codes
  *  - Set to current for missing axis codes
@@ -460,7 +459,7 @@ void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
 
       #if HAS_RESUME_CONTINUE
         case 0:                                                   // M0: Unconditional stop - Wait for user button press on LCD
-        case 1: M0_M1(); break;                                   // M1: Conditional stop - Wait for user button press on LCD
+        case 1: /*M0_M1(); */break;                                   // M1: Conditional stop - Wait for user button press on LCD
       #endif
 
       #if HAS_CUTTER
@@ -971,7 +970,6 @@ void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
         #if USE_SENSORLESS
           case 914: M914(); break;                                // M914: Set StallGuard sensitivity.
         #endif
-        case 919: M919(); break;                                  // M919: Set stepper Chopper Times
       #endif
 
       #if HAS_L64XX
